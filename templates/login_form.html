@@ -38,6 +38,7 @@
     if (this.readyState ==4) {
         if (this.status==200) {
             console.log(this.responseText)
+            localStorage.setItem('dn-login', true)
         } else {
             // fout: pagina opnieuw laden...
         }
@@ -50,7 +51,7 @@
       inputels.forEach ( el => res[el.name] = el.value ) 
       data = JSON.stringify(res)
       console.log(data) 
-      xhttp.open("POST", `http://localhost/dreadnought/login`)
+      xhttp.open("POST", `login`)
       xhttp.setRequestHeader('Content-type', 'application/json')
       xhttp.send(data)
    })

@@ -14,8 +14,10 @@ xhttp.onreadystatechange = function() {
         link.querySelector('a').setAttribute('href', `#${el.id}`) 
 
         footer.querySelector('p.ref').textContent = `Dreadnought, p.${el.paginanummer}`
-        footer.querySelector('a.edit').setAttribute('href', `edit/${el.id}`)
-        footer.querySelector('a.delete').setAttribute('href', `del/${el.id}`) 
+        if (localStorage.getItem('dn-token')) {
+          footer.querySelector('a.edit').setAttribute('href', `edit/${el.id}`)
+          footer.querySelector('a.delete').setAttribute('href', `del/${el.id}`) 
+        }
 
         item.querySelector('time').setAttribute("datetime", d)
         item.querySelector('time').setAttribute('id', el.id)
@@ -35,6 +37,11 @@ xhttp.onreadystatechange = function() {
 }
 xhttp.open("GET", "http://localhost/dreadnought/timeline/39")
 xhttp.send()
+
+if (localStorage.getItem('dn-login')) {
+  console.log('CHECK')
+  document.querySelector("#login-button").innerHTML = 'Ingelogd!' 
+}
 
 function show_anchor(el) {
     el.firstElementChild.classList.add('active')

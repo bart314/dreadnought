@@ -81,6 +81,7 @@ buttons.forEach( el => el.addEventListener('click', e => {
   xhttp.action = e.target.getAttribute('action')
   xhttp.open("PUT", `http://localhost/dreadnought/edit/${id}`)
   xhttp.setRequestHeader('Content-type', 'application/json')
+  xhttp.setRequestHeader('Authorization', 'JWT '+localStorage.getItem('dn-token'))
   xhttp.send(data)
 }))
 
