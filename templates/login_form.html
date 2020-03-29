@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+    <style>
+    #form-main {  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+    </style>
+</head>
+<body>
+<div id="form-main" class="jumbotron">
+  <div class="container col-sm-4">
+    <h1>Login-form</h1>
+    <form class="form-horizontal" id="mainform">
+        <div class="form-group">
+            <label for="email">Gebruikersnaam</label>
+            <input type="text" class="form-control" name="usr" id="usr" value="test naam">
+          </div>
+          <div class="form-group">
+            <label for="pwd">Wachtwoord:</label>
+            <input type="password" class="form-control" name="pwd" id="pwd" value="en wachtwoord">
+          </div>
+          <button type="button" id="sbmt" class="btn btn-primary">Aanmelden</button>
+    </form>
+  </div><!-- container -->
+</div><!-- main -->
+
+<script>
+  const xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"); 
+  xhttp.onreadystatechange = function(){ 
+    if (this.readyState ==4) {
+        if (this.status==200) {
+            console.log(this.responseText)
+        } else {
+            // fout: pagina opnieuw laden...
+        }
+    } 
+  }
+
+  document.querySelector("#sbmt").addEventListener('click', (e) => {
+      var res = {}
+      let inputels = document.querySelectorAll("input")
+      inputels.forEach ( el => res[el.name] = el.value ) 
+      data = JSON.stringify(res)
+      console.log(data) 
+      xhttp.open("POST", `http://localhost/dreadnought/login`)
+      xhttp.setRequestHeader('Content-type', 'application/json')
+      xhttp.send(data)
+   })
+
+</script>
+
+</body></html>

@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   <h1>Test dit...</h1> 
+
+   <div class="container" id="main"> 
+
+
+   </div>
+
+   <input type="button" value="Ga los..." id="btn"/>
+
+
+<template id="item">
+  <div>
+	<time class="cbp_tmtime" datetime="${d}" id="${el.id}"><span class="jaar">${el.jaar}</span><span class="datum">${d_full}</span></time>
+	<div class="cbp_tmicon cbp_tmicon-earth"></div>
+	<div class="cbp_tmlabel">
+	<h2>${el.koptekst}</h2> 
+	<p>${el.broodtekst}</p>
+    </div>
+  </div>
+</template>
+
+<template id="item-link">
+    <a class="link" href="#${el.id}"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>
+</template>
+
+<template id="item-footer">
+    <div class="footer">
+        <p class="ref">Dreadnought, p.${el.paginanummer}
+        <p class="edit">
+            <a class="edit" href="edit/${el.id}">Wijzig</a> | <a class="delete" href="del/${el.id}">Verwijder</a>
+        </p>
+    </div>
+</template>
+
+</body>
+
+<script>
+const data= [{"jaar":"1921","datum":"12-05","paginanummer":"123","koptekst":"dit is de awesome koptekst","broodtekst":"En hier allemaal mooie <a href='hallo daar'>dingen</a>...", "id":28}, 
+{"id":"1","jaar":"1910","datum":"12-01","paginanummer":"720","koptext":"Germany will defend the interests of German merchants in Morocco.","broodtekst":"The south of Morocco is thought to be exceedingly fertile. German merchants want to settle there, but the road is blocked by the French as a result of the Act of Algeciras. "}] 
+
+const months = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Oct','Nov','Dec']
+
+data.forEach( el => {
+  let d = new Date(el.jaar +'-' + el.datum) 
+  let d_full = `${months[d.getUTCMonth()]} ${d.getDate()}`
+  let item = document.importNode(
+      document.querySelector("#item").content.querySelector("div"), true)
+  let link = document.importNode(document.querySelector("#item-link").content, true)
+  let footer = document.importNode(document.querySelector("#item-footer").content, true)
+
+  link.querySelector('a').setAttribute('href', `#${el.id}`)
+
+  footer.querySelector('p.ref').textContent = `Dreadnought, p.${el.paginanummer}`
+  footer.querySelector('a.edit').setAttribute('href', `edit/${el.id}`)
+  footer.querySelector('a.delete').setAttribute('href', `del/${el.id}`)
+
+
+  item.querySelector('time').setAttribute("datetime", d)
+  item.querySelector('time').setAttribute('id', el.id)
+  item.querySelector('span.jaar').textContent = el.jaar
+  item.querySelector('span.datum').textContent = d_full 
+
+  item.querySelector('h2').textContent = el.koptekst
+  item.querySelector('h2').appendChild(link)
+  item.querySelector('p').innerHTML = el.broodtekst
+  item.appendChild(footer)
+
+  document.body.appendChild(item)
+})
+
+
+
+
+</script>
+
+</html>
