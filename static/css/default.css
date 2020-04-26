@@ -35,6 +35,8 @@ a:hover { color: #000; }
 a.anchor { float: right; opacity:0; transition:opacity .51s; }
 a.anchor.active { opacity:1; transition:opacity .5s; }
 
+#login-button { cursor:pointer; padding:4px; }
+#login-button:hover { background-color:#eee; border:solid lightgray 1px; }
 
 
 .main,

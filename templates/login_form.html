@@ -53,6 +53,13 @@
       console.log(data) 
       xhttp.open("POST", `login`)
       xhttp.setRequestHeader('Content-type', 'application/json')
+      xhttp.onreadystatechange = function() { 
+        if (this.readyState ==4  && this.status==200) { 
+          document.location = 'http://localhost/dreadnought'
+        } else {
+          console.log(this.responseText)
+        }
+      }
       xhttp.send(data)
    })
 

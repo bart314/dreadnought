@@ -78,6 +78,19 @@ def delete(id):
     conn.cursor().execute(sql, (id,))
     conn.commit()
 
+def blacklist_token(jwt):
+    conn = connection()
+    sql = "insert into tokens values(%s)"
+    conn.cursor().execute(sql, (jwt, ))
+    conn.commit()
+
+def get_blacklist_token(jwt):
+    conn = connection()
+    sql = "select count(*) as tot from tokens where jwt=%s";
+    cursor = conn.cursor(dictionary=True )
+    cursor.execute(sql, (jwt,));
+    return list(cursor)[0]
+
 #{"id":"1","jaar":"1910","datum":"12-01","paginanummer":"720","koptext":"Germany will defend the interests of German merchants in Morocco.","broodtekst":"The south of Morocco is thought to be exceedingly fertile. German merchants want to settle there, but the road is blocked by the French as a result of the Act of Algeciras. "}
 #data = {"jaar":"1921","datum":"12-05","paginanummer":"123","koptekst":"dit is de awesome koptekst","broodtekst":"En hier allemaal mooie <a href='hallo daar'>dingen</a>...", "id":28}
 #foo = (int(data['jaar']), data['datum'], int(data['paginanummer']), data['koptekst'], data['broodtekst'], int(data['id']))
@@ -86,5 +99,5 @@ def delete(id):
 #print (get_time_item(13))
 #delete(28)
 #insert (data)d
-data = {'old':2, 'new':23}
-update_position(8, data)
+#data = {'old':2, 'new':23}
+#update_position(8, data)
