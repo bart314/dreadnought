@@ -14,24 +14,31 @@
 	<script src="/static/js/modernizr.custom.js"></script>
 </head>
 <body>
+	<!-- from https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
+	<div class="topnav">
+		<!-- Navigation links (hidden by default) -->
+		<div id="chapters">
+		</div>
+		<!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+		<a href="javascript:void(0);" class="icon" onclick="toggle_menu()">
+		  <i class="fa fa-bars"></i>
+		</a>
+	  </div>
+
+
+
 	<div class="container">
 		<header class="clearfix"> 
-			<h1>The Agadir Crisis</h1>
-			<nav id="login-button">hier</nav>
+			<h1 id="title"></h1>
+			<nav id="login-button">Login</nav>
 		</header>	
 
 		<div class="main">
-		<div class="intro">
-			<h3>Introduction</h3>
-			<p>Lorem ipsum dolor sit</p>
-		</div>	
-
-		<ul class="cbp_tmtimeline" id="timeline"> 
-		</ul>
-
+			<div id="intro" class="intro"> </div>	
+			<ul class="cbp_tmtimeline" id="timeline"> 
+			</ul> 
 	  </div>
 	</div>
-
 
 <template id="item">
   <div>

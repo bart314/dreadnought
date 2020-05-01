@@ -52,7 +52,8 @@
 </div><!-- container -->
 
 <script>
-
+const API_URL = 'http://localhost/dreadnought/'
+//const API_URL = 'http://localhost:5000/'
 const xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"); 
 const id = document.querySelector("#id").value
 
@@ -67,22 +68,49 @@ function serialize() {
 }
 
 xhttp.onreadystatechange = function() {
+  console.log(this)
   if (this.readyState ==4  && this.status==200) { 
     console.log(this.responseText)
     console.log(xhttp.action)
     let link = this.responseText
-    if (xhttp.action=='back') document.location = `http://localhost/dreadnought/#${link}`
+    if (xhttp.action=='back') document.location = `${API_URL}#${link}`
   }
 }
 
+// https://stackoverflow.com/questions/40893537/fetch-set-cookies-and-csrf
+const xsrfCookie = document.cookie.split(';')
+    .map(c => c.trim())
+    .filter(c => c.startsWith('csrf_access_token='))
+    .map ( e=> decodeURIComponent(e.split('=')[1]) )[0]
+
+headers = { 'Content-Type':'application/json','X-CSRF-TOKEN': xsrfCookie }
+fetch (`${API_URL}testput`, {
+  method:'put',
+  headers,
+  credentials:'include'
+})
+.then ( data => data.text() )
+.then ( e => console.log(e) )
+
+var retour = null
 let buttons = document.querySelectorAll("#save_and_stay, #save_and_back")
+console.log(document.cookie)
 buttons.forEach( el => el.addEventListener('click', e => { 
-  data = serialize()
-  xhttp.action = e.target.getAttribute('action')
-  xhttp.open("PUT", `http://localhost/dreadnought/edit/${id}`)
-  xhttp.setRequestHeader('Content-type', 'application/json')
-  xhttp.setRequestHeader('Authorization', 'JWT '+localStorage.getItem('dn-token'))
-  xhttp.send(data)
+  let data = serialize()
+  fetch(`${API_URL}edit/${id}`, {
+    method: 'PUT', // or 'PUT'
+    headers,
+    credentials:'include',
+    body: data,
+  }).then( el => console.log(el) )
+.catch(err => console.error(err) )
+
+
+
+  //xhttp.action = e.target.getAttribute('action')
+  //xhttp.open("PUT", `${API_URL}edit/${id}`)
+  //xhttp.setRequestHeader('Content-type', 'application/json')
+  //xhttp.send(data)
 }))
 
 </script>

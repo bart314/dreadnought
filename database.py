@@ -10,6 +10,30 @@ def connection():
         charset = 'utf8',
     )
 
+def get_chapters():
+    conn = connection();
+    try:
+        cursor = conn.cursor(dictionary=True)
+        sql = 'select nr,titel from chapters'
+        cursor.execute(sql)
+    except mysql.connector.Error as err:
+        print (err)
+    return list(cursor)
+
+    
+
+def get_chapter_info(id):
+    conn = connection()
+    try:
+        cursor = conn.cursor(dictionary=True)
+        sql = "select * from chapters where nr=%s"
+        cursor.execute(sql, (id,))
+    except mysql.connector.Error as err:
+        print (err)
+    return list(cursor)
+
+
+
 def get_timeline(hoofdstuk):
     conn = connection()
     try:

@@ -1,5 +1,5 @@
 # Opstarten met 
-# gunicorn --bind 0.0.0.0:5000  wsgi:app
+# gunicorn --bind 0.0.0.0:5000  wsgi:app --error-logfile gunicorn.error.log --access-logfile gunicorn.log --capture-output
 
 from flask import Flask, render_template, jsonify, request, Response
 from flask_jwt_extended import (
@@ -14,6 +14,7 @@ import database
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
 app.config['JWT_COOKIE_SECURE'] = False
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=3600) 
 
@@ -30,8 +31,9 @@ def check_if_token_is_revoked(decrypted_token):
 
 
 @app.route("/", methods=['get'])
-def index():
-  return render_template("index.html")
+def index(): 
+    return render_template("index.html")
+
 
 
 @app.route('/login', methods=['get'])
@@ -65,6 +67,17 @@ def test():
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
 
+
+@app.route('/chapters', methods=['get'])
+def chapters():
+    data = database.get_chapters();
+    return jsonify(data)
+
+@app.route('/chapter/<id>', methods=['get'])
+def get_chapter(id):
+    data = database.get_chapter_info(id)
+    return jsonify(data)
+
 @app.route("/timeline/<chapter>", methods=['get'])
 def timeline(chapter):
     data = database.get_timeline(chapter)
@@ -73,15 +86,22 @@ def timeline(chapter):
 @app.route('/edit/<id>', methods=['get'])
 @jwt_required
 def edit(id):
+    print (get_jwt_identity())
     data = database.get_time_item(id)
     return render_template('form.html', result=data)
 
 @app.route('/edit/<id>', methods=['put'])
 @jwt_required
 def update(id):
-    print (request.json)
-    n_id = database.update(request.json)
+    data = request.json 
+    n_id = database.update(data)
     return "{}".format(n_id), 200
+
+@app.route('/testput', methods=['put'])
+@jwt_required
+def testput():
+    print (get_jwt_identity());
+    return '  *** testput ***'
 
 @app.route('/position/<id>', methods=['put'])
 @jwt_required
