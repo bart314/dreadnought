@@ -6,3 +6,4 @@ data
 notities.txt
 *.log
 test.*
+*.sql

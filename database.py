@@ -4,8 +4,8 @@ import json
 def connection():
     return mysql.connector.connect(
         host = 'localhost',
-        user = 'docent',
-        passwd = 'hoppekee',
+        user = 'dreadnought',
+        passwd = 'HMSDreadnought',
         database = 'dreadnought',
         charset = 'utf8',
     )

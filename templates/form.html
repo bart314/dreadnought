@@ -52,7 +52,7 @@
 </div><!-- container -->
 
 <script>
-const API_URL = 'http://localhost/dreadnought/'
+const API_URL = (window.location.hostname.indexOf('localhost') >= 0 ) ? 'http://localhost/dreadnought/' : 'http://mandarin.nl/dreadnought/'
 //const API_URL = 'http://localhost:5000/'
 const xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"); 
 const id = document.querySelector("#id").value

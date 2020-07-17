@@ -1,5 +1,6 @@
-
-const API_BASE = 'http://localhost/dreadnought'
+const API_BASE = (window.location.hostname.indexOf('localhost') >= 0) ? 'http://localhost/dreadnought' : 'http://mandarin.nl/dreadnought/'
+console.log(window.location.hostname.indexOf('localhost'))
+console.log(API_BASE)
 const months = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Oct','Nov','Dec'] 
 var user_logged_in = null
 var CURRENT_CHAPTER =42
