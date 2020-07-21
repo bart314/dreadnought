@@ -12,7 +12,7 @@ import json
 import database
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+app.config['JWT_SECRET_KEY'] = 'DreadNoughtPassWord'  # Change this!
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
 app.config['JWT_COOKIE_SECURE'] = False
@@ -34,6 +34,9 @@ def check_if_token_is_revoked(decrypted_token):
 def index(): 
     return render_template("index.html")
 
+@app.route("/<int:id>", methods=['get'])
+def page_index(id): 
+    return render_template("pages.html", chapter=id)
 
 
 @app.route('/login', methods=['get'])

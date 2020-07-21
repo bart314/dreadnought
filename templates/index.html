@@ -4,66 +4,49 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<title>Blueprint: Vertical Timeline</title>
-	<meta name="description" content="Blueprint: Vertical Timeline" />
-	<meta name="keywords" content="timeline, vertical, layout, style, component, web development, template, responsive" />
-	<meta name="author" content="Codrops" />
+	<title>Dreadnought</title>
 	<link rel="shortcut icon" href="../favicon.ico">
 	<link rel="stylesheet" type="text/css" href="/static/css/default.css" />
 	<link rel="stylesheet" type="text/css" href="/static/css/component.css" />
 	<script src="/static/js/modernizr.custom.js"></script>
+
+	<style>
+		footer { font-size:xx-small; }
+		a { color:#a547da; text-decoration:none;}
+		a:hover { text-decoration:underline;}
+	</style>
+
 </head>
 <body>
-	<!-- from https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
-	<div class="topnav">
-		<!-- Navigation links (hidden by default) -->
-		<div id="chapters">
-		</div>
-		<!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
-		<a href="javascript:void(0);" class="icon" onclick="toggle_menu()">
-		  <i class="fa fa-bars"></i>
-		</a>
+<div class="container">
+  <div class="main">
+	  <div>
+		<h1>Dreadnought</h1>
+		<h3>Brittain, Germany and the Coming of the Great War</h3>
 	  </div>
 
+	  <div>
+	  <p>In 1992, Robert K. Massie published an impressive work about the naval arms race that was one of the main factors leading to the First World War. In about 1200 pages, Massie brings to life such historical figures as the single-minded Admiral von Tirpitz, the young and ambitious Winston Churchill, the ruthless and  sycophantic Chancellor Bernhard von Bülow, the aggressive and uncertain Wilhelm II, and many, many others. Their stories and interactions, the interplay between the ageing British and the upcoming German Empires, and the changing nature of war at sea are all described in such a detail that the feeling of the era really comes to life.</p>
 
+	  <p>Interesting as this volume is in itself, because of its size one can loose track of the specific chronology and the narratives described in the several chapters. This site is an ongoing project to provide a chronological summary of the most interesting chapters in the form of a time-line, adding interesting links and images in the process.  </p>
 
-	<div class="container">
-		<header class="clearfix"> 
-			<h1 id="title"></h1>
-			<nav id="login-button">Login</nav>
-		</header>	
-
-		<div class="main">
-			<div id="intro" class="intro"> </div>	
-			<ul class="cbp_tmtimeline" id="timeline"> 
-			</ul> 
-	  </div>
-	</div>
-
-<template id="item">
-  <div>
-	<time class="cbp_tmtime" datetime="${d}" id="${el.id}"><span class="jaar">${el.jaar}</span><span class="datum">${d_full}</span></time>
-	<div class="cbp_tmicon cbp_tmicon-earth"></div>
-	<div class="cbp_tmlabel">
-	<h2 class="koptekst" onmouseenter="show_anchor(this)" onmouseleave="hide_anchor(this)">${el.koptekst}</h2> 
-	<p>${el.broodtekst}</p>
-    </div>
+	  <p>At the moment, the following chapters have been added:<br/>
+		<ul>
+			<li><a href="/dreadnought/39">The Agadir Crisis</a></li>
+			<li><a href="/dreadnought/42">The Haldane Mission</a></li>
+			<li><a href="/dreadnought/43">Naval Estimates and a Naval Holiday</a></li>
+			<li><a href="/dreadnought/45">The Coming of Armageddon: Berlin</a></li>
+			<li><a href="/dreadnought/46">The Coming of Armageddon: London</a></li>
+		</ul>
+	  </p> 
   </div>
-</template>
 
-<template id="item-link">
-    <a class="anchor" href="#${el.id}"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>
-</template>
+<footer>
+	<p>This site uses <a href="https://tympanus.net/Blueprints/VerticalTimeline/">Vertical Timeline</a> by <a href="https://tympanus.net/codrops/author/crnacura/">Mary Lou</a></p>
+	<p>Last update: July 21, 2020</p>
+</footer>
 
-<template id="item-footer">
-    <div class="footer">
-        <p class="ref">Dreadnought, p.${el.paginanummer}
-        <p class="edit">
-            <a class="edit" href="edit/${el.id}">Wijzig</a> | <a class="delete" href="del/${el.id}">Verwijder</a>
-        </p>
-    </div>
-</template>
+</div>
 
-<script src="/static/js/data.js"></script>
 </body>
 </html>

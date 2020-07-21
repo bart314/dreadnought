@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<title>Blueprint: Vertical Timeline</title>
+	<meta name="description" content="Blueprint: Vertical Timeline" />
+	<meta name="keywords" content="timeline, vertical, layout, style, component, web development, template, responsive" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+	<script src="/static/js/modernizr.custom.js"></script>
+</head>
+<body>
+	<!-- from https://www.w3schools.com/howto/howto_js_mobile_navbar.asp -->
+	<div class="topnav">
+		<!-- Navigation links (hidden by default) -->
+		<div id="chapters">
+			<a href="/dreadnought/">Home</a>
+			<hr/>
+		</div>
+		<!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+		<a href="javascript:void(0);" class="icon" onclick="toggle_menu()">
+		  <i class="fa fa-bars"></i>
+		</a>
+	  </div>
+
+
+
+	<div class="container">
+		<header class="clearfix"> 
+			<h1 id="title"></h1>
+			<nav id="login-button">Login</nav>
+		</header>	
+
+		<div class="main">
+			<div id="intro" class="intro"> </div>	
+			<ul class="cbp_tmtimeline" id="timeline"> 
+			</ul> 
+	  </div>
+	</div>
+
+<template id="item">
+  <div>
+	<time class="cbp_tmtime" datetime="${d}" id="${el.id}"><span class="jaar">${el.jaar}</span><span class="datum">${d_full}</span></time>
+	<div class="cbp_tmicon cbp_tmicon-earth"></div>
+	<div class="cbp_tmlabel">
+	<h2 class="koptekst" onmouseenter="show_anchor(this)" onmouseleave="hide_anchor(this)">${el.koptekst}</h2> 
+	<p>${el.broodtekst}</p>
+    </div>
+  </div>
+</template>
+
+<template id="item-link">
+    <a class="anchor" href="#${el.id}"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>
+</template>
+
+<template id="item-footer">
+    <div class="footer">
+        <p class="ref">Dreadnought, p.${el.paginanummer}
+        <p class="edit">
+            <a class="edit" href="edit/${el.id}">Wijzig</a> | <a class="delete" href="del/${el.id}">Verwijder</a>
+        </p>
+    </div>
+</template>
+
+<script src="/static/js/data.js" chapter={{ chapter }}></script>
+</body>
+</html>

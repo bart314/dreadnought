@@ -1,9 +1,8 @@
+
 const API_BASE = (window.location.hostname.indexOf('localhost') >= 0) ? 'http://localhost/dreadnought' : 'http://mandarin.nl/dreadnought/'
-console.log(window.location.hostname.indexOf('localhost'))
-console.log(API_BASE)
 const months = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Oct','Nov','Dec'] 
 var user_logged_in = null
-var CURRENT_CHAPTER =42
+var CURRENT_CHAPTER = document.currentScript.getAttribute('chapter')
 
 fetch(`${API_BASE}/chapters`)
 .then ( resp => resp.json() )
@@ -104,7 +103,6 @@ function login_button() {
 
 
 function logout() { 
-  console.log('logout')
   //https://stackoverflow.com/questions/2144386/how-to-delete-a-cookie
   document.cookie = 'csrf_access_token=; Max-Age=-99999'
   user_logged_in = false
