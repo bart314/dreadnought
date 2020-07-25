@@ -12,7 +12,7 @@ import json
 import database
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'DreadNoughtPassWord'  # Change this!
+app.config['JWT_SECRET_KEY'] = 'DreadNoughtPassWord'  
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
 app.config['JWT_COOKIE_SECURE'] = False
@@ -89,19 +89,27 @@ def timeline(chapter):
 @app.route('/edit/<id>', methods=['get'])
 @jwt_required
 def edit(id):
-    print (get_jwt_identity())
     data = database.get_time_item(id)
     return render_template('form.html', result=data)
 
 @app.route('/edit/<id>', methods=['put'])
-@jwt_required
+#@jwt_required
 def update(id):
     data = request.json 
     n_id = database.update(data)
     return "{}".format(n_id), 200
 
+@app.route('/next_item/<chapter>/<item>', methods=['get'])
+#@jwt_required
+def next_item(chapter, item):
+    items = database.next_item(chapter, item)
+    if (len(items)==1):
+        return '',204
+    else:
+        return jsonify(items[1]), 200
+
 @app.route('/testput', methods=['put'])
-@jwt_required
+#@jwt_required
 def testput():
     print (get_jwt_identity());
     return '  *** testput ***'

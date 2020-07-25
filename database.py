@@ -54,6 +54,19 @@ def get_time_item(id):
         print (error) 
     return list(cursor)[0]
 
+def next_item(chapter, item):
+    conn = connection()
+    try:
+        #gaat niet helemaal goed, want id is niet gegarandeerd steeds hoger.
+        #maar eerst maar even zo...
+        cursor = conn.cursor(dictionary=True)
+        sql = "select id from timeline where hoofdstuk=%s and id>=%s order by volgnummer limit 2;"
+        cursor.execute(sql, (chapter,item)) 
+    except mysql.connector.Error as error:
+        print (error)
+
+    return list(cursor)
+
 def update(data):
     foo = (int(data['jaar']), data['datum'], int(data['paginanummer']), data['koptekst'], data['broodtekst'], int(data['id']))
     conn = connection()
@@ -124,4 +137,3 @@ def get_blacklist_token(jwt):
 #delete(28)
 #insert (data)d
 #data = {'old':2, 'new':23}
-#update_position(8, data)

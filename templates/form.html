@@ -17,6 +17,7 @@
   <h2>{{ result['koptekst'] }}</h2>
   <form class="form-horizontal" id="mainform">
     <input type="hidden" id="id" name="id" value="{{ result['id'] }}">
+    <input type="hidden" id="hoofdstuk" name="hoofdstuk" value="{{ result['hoofdstuk'] }}">
     <div class="form-group">
       <label class="control-label col-sm-2" for="jaar">Jaar: </label>
       <input class="round" type="text" maxlength="4" id="jaar" name="jaar" value="{{ result['jaar'] }}">
@@ -43,75 +44,16 @@
     </div>
 
     <div class="form-group"> 
-       <button type="button" class="btn btn-primary" id="save_and_stay" action="stay">Opslaan en hier blijven</button>
-       <button type="button" class="btn btn-primary" id="save_and_back" action="back">Opslaan en terug naar de tijdlijn</button>
+       <button type="button" class="navigation btn btn-primary" id="save_and_stay" action="stay">Opslaan en hier blijven</button>
+       <button type="button" class="navigation btn btn-primary" id="save_and_next" action="next">Opslaan en volgend item</button>
+       <button type="button" class="navigation btn btn-primary" id="save_and_back" action="back">Opslaan en terug naar de tijdlijn</button>
     </div>
 
   </form>
 
 </div><!-- container -->
 
-<script>
-const API_URL = (window.location.hostname.indexOf('localhost') >= 0 ) ? 'http://localhost/dreadnought/' : 'http://mandarin.nl/dreadnought/'
-//const API_URL = 'http://localhost:5000/'
-const xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"); 
-const id = document.querySelector("#id").value
-
-function serialize() {
-  let inputels = document.querySelectorAll("input")
-  let textels = document.querySelectorAll("textarea")
-  var res = {}
-  inputels.forEach ( el => res[el.name] = el.value )
-  textels.forEach ( el => res[el.name] = el.value )
-
-  return JSON.stringify(res)
-}
-
-xhttp.onreadystatechange = function() {
-  console.log(this)
-  if (this.readyState ==4  && this.status==200) { 
-    console.log(this.responseText)
-    console.log(xhttp.action)
-    let link = this.responseText
-    if (xhttp.action=='back') document.location = `${API_URL}#${link}`
-  }
-}
-
-// https://stackoverflow.com/questions/40893537/fetch-set-cookies-and-csrf
-const xsrfCookie = document.cookie.split(';')
-    .map(c => c.trim())
-    .filter(c => c.startsWith('csrf_access_token='))
-    .map ( e=> decodeURIComponent(e.split('=')[1]) )[0]
-
-headers = { 'Content-Type':'application/json','X-CSRF-TOKEN': xsrfCookie }
-fetch (`${API_URL}testput`, {
-  method:'put',
-  headers,
-  credentials:'include'
-})
-.then ( data => data.text() )
-.then ( e => console.log(e) )
-
-var retour = null
-let buttons = document.querySelectorAll("#save_and_stay, #save_and_back")
-console.log(document.cookie)
-buttons.forEach( el => el.addEventListener('click', e => { 
-  let data = serialize()
-  fetch(`${API_URL}edit/${id}`, {
-    method: 'PUT', // or 'PUT'
-    headers,
-    credentials:'include',
-    body: data,
-  }).then( el => console.log(el) )
-.catch(err => console.error(err) )
-
-
-
-  //xhttp.action = e.target.getAttribute('action')
-  //xhttp.open("PUT", `${API_URL}edit/${id}`)
-  //xhttp.setRequestHeader('Content-type', 'application/json')
-  //xhttp.send(data)
-}))
+<script src="/static/js/form.js">
 
 </script>
     

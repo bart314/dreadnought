@@ -29,7 +29,7 @@ body {
 div.footer { color:black; font-size:x-small; }
 p.ref { float:left; }
 p.edit { float:right; }
-div.cbp_tmlabel img { margin:1% 0; width:40%; }
+div.cbp_tmlabel img { margin:auto; display:block; width:30%; padding-top:2%; }
 div.cbp_tmlabel a { text-decoration:underline; }
 
 a { color: #f0f0f0; text-decoration: none; } 
@@ -37,7 +37,7 @@ a:hover { color: #000; }
 a.anchor { float: right; opacity:0; transition:opacity .51s; }
 a.anchor.active { opacity:1; transition:opacity .5s; }
 
-#intro p { line-height:1.6rem;}
+#intro p { line-height:1.6rem; font-size:larger; }
 #login-button { cursor:pointer; padding:4px; }
 #login-button:hover { background-color:#eee; border:solid lightgray 1px; }
 
