@@ -1,4 +1,5 @@
 __pycache__/
+*_log
 .vscode/
 .DS_Store
 env/
