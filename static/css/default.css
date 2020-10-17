@@ -31,6 +31,7 @@ p.ref { float:left; }
 p.edit { float:right; }
 div.cbp_tmlabel img { margin:auto; display:block; width:30%; padding-top:2%; }
 div.cbp_tmlabel a { text-decoration:underline; }
+div.small { font-size:small; text-align:center; }
 
 a { color: #f0f0f0; text-decoration: none; } 
 a:hover { color: #000; } 
@@ -45,9 +46,9 @@ a.anchor.active { opacity:1; transition:opacity .5s; }
 
 /* FROM https://www.w3schools.com/howto/howto_js_mobile_navbar.asp */
  /* Style the navigation menu */
- .topnav { background-color: #000; position: fixed; width:20vw; z-index:9; } 
+  .topnav { background-color: #000; position: fixed; width:20vw; z-index:9; } 
   /* Hide the links inside the navigation menu (except for logo/home) */
-  .topnav #chapters { background-color:black; display: none; margin-top:40px; } 
+  .topnav #chapters { background-color:black; display: none; margin-top:40px; overflow-y:scroll; } 
   /* Style navigation menu links */
   .topnav a { color: #47a3da; padding: 14px 16px; text-decoration: none; font-size: 17px; display: block; } 
   /* Style the hamburger menu */

@@ -4,19 +4,28 @@ const months = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Oc
 var user_logged_in = null
 var CURRENT_CHAPTER = document.currentScript.getAttribute('chapter')
 
-fetch(`${API_BASE}/chapters`)
+fetch(`${API_BASE}/chapters-parts`)
 .then ( resp => resp.json() )
-.then ( data => data.forEach ((el, idx) => {
-  let link = document.createElement('a')
-  link.href="#"
-  link.onclick= () => {
-    CURRENT_CHAPTER = el.nr
-    toggle_menu()
-    load_chapter()
-    load_items()
-  }
-  link.innerHTML = el.titel
-  document.querySelector('#chapters').appendChild(link)
+.then ( data => data.forEach ((part, idx) => {
+  menu = document.querySelector('#chapters')
+  menu.appendChild(document.createElement('hr'))
+  let tit = document.createElement('div')
+  tit.setAttribute('class','small')
+  tit.innerHTML = `<b>${part.nr}. ${part.title}`
+  menu.appendChild(tit)
+  part.chapters.forEach( el => { 
+      let link = document.createElement('a')
+      link.href="#"
+      link.onclick= () => {
+        CURRENT_CHAPTER = el.nr
+        toggle_menu()
+        load_chapter()
+        load_items()
+      }
+      link.innerHTML = el.title
+      menu.appendChild(link)
+    }
+  )
 }))
 
 login_button()
@@ -28,8 +37,10 @@ function toggle_menu() {
   var x = document.getElementById("chapters");
   if (x.style.display === "block") {
     x.style.display = "none";
+    x.style.height = '0'
   } else {
     x.style.display = "block";
+    x.style.height = '90vh'
   }
 } 
 
@@ -43,8 +54,8 @@ function load_chapter() {
      let intro = document.createElement('p')
      intro.innerHTML = res[0].samenvatting 
      document.querySelector('#intro').appendChild(intro) 
-     document.querySelector("#title").innerHTML = res[0].titel
-     document.title = 'Dreadnought: ' + res[0].titel
+     document.querySelector("#title").innerHTML = res[0].title
+     document.title = 'Dreadnought: ' + res[0].title
    })
 }
 

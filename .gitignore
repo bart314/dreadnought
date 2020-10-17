@@ -8,3 +8,5 @@ notities.txt
 *.log
 test.*
 *.sql
+tmp
+*.swp

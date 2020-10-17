@@ -20,6 +20,30 @@ def get_chapters():
         print (err)
     return list(cursor)
 
+def get_chapter_and_parts():
+    conn = connection()
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('select * from parts order by nr')
+        chapters = list(cursor)
+        rv = []
+
+        for c in chapters:
+            tmp = c 
+            sql = 'select nr,title from chapters where part={}'.format(c['nr'])
+            cursor.execute(sql)
+            tmp['chapters'] = list(cursor)
+            rv.append(tmp)
+
+        return rv
+        
+    
+
+    except mysql.connector.Error as err:
+        print (err)
+
+
+
     
 
 def get_chapter_info(id):
@@ -137,3 +161,4 @@ def get_blacklist_token(jwt):
 #delete(28)
 #insert (data)d
 #data = {'old':2, 'new':23}
+get_chapter_and_parts()

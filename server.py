@@ -76,6 +76,11 @@ def chapters():
     data = database.get_chapters();
     return jsonify(data)
 
+@app.route('/chapters-parts', methods=['get'])
+def chapters_parts():
+    data = database.get_chapter_and_parts()
+    return jsonify(data)
+
 @app.route('/chapter/<id>', methods=['get'])
 def get_chapter(id):
     data = database.get_chapter_info(id)
