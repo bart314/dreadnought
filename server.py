@@ -102,7 +102,7 @@ def edit(id):
 def update(id):
     data = request.json 
     n_id = database.update(data)
-    return "{}".format(n_id), 200
+    return f"{n_id}", 200
 
 @app.route('/next_item/<chapter>/<item>', methods=['get'])
 #@jwt_required
@@ -130,7 +130,7 @@ def update_position(id):
 def insert():
     id = database.insert(request.json) 
     resp = Response()
-    resp.headers['Location'] = "http:/localhost/dreadnought/edit/{}".format(id)
+    resp.headers['Location'] = f"http:/localhost/dreadnought/edit/{id}"
     return resp, 201
 
 @app.route('/del/<id>', methods=['delete'])

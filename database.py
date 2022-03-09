@@ -30,14 +30,12 @@ def get_chapter_and_parts():
 
         for c in chapters:
             tmp = c 
-            sql = 'select nr,title from chapters where part={}'.format(c['nr'])
+            sql = f"select nr,title from chapters where part={c['nr']}'"
             cursor.execute(sql)
             tmp['chapters'] = list(cursor)
             rv.append(tmp)
 
         return rv
-        
-    
 
     except mysql.connector.Error as err:
         print (err)
